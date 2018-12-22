@@ -1,0 +1,42 @@
+﻿<Window x:Class="DatabaseCodeScriptTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DatabaseCodeScriptTool"
+        mc:Ignorable="d"
+        Title="C#数据库代码生成器" Height="477.511" Width="800" Icon="/img/icon.ico" Background="LightGray" >
+    <Grid>
+        <Label Content="Sql数据库连接字符串：" HorizontalAlignment="Left" Margin="30,19,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="sqlLinkStr" HorizontalAlignment="Left" Height="23" Margin="171,21,0,0" TextWrapping="Wrap" Text="server=.\SQLEXPRESS;uid=sa;password=123456;" VerticalAlignment="Top" Width="494"/>
+        <Button Name="testLinkBtn" Content="验证连接" HorizontalAlignment="Left" Margin="678,20,0,0" VerticalAlignment="Top" Width="75" Height="23" Click="TestLinkBtn_Click"/>
+        <Label Content="选择数据库：" HorizontalAlignment="Left" Margin="30,49,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="searchDatabase" HorizontalAlignment="Left" Margin="112,53,0,0" VerticalAlignment="Top" Width="171">
+        </ComboBox>
+        <Button Name="searchTabelBtn" Content="查询" HorizontalAlignment="Left" Margin="298,53,0,0" VerticalAlignment="Top" Width="87" Height="21" Click="SearchTabelBtn_Click"/>
+        <TextBox Name="tablesLog" HorizontalAlignment="Left" Height="162" Margin="30,105,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="723" IsReadOnly="True" />
+        <Label Content="数据库中的表" HorizontalAlignment="Left" Margin="30,85,0,0" VerticalAlignment="Top" Width="82"/>
+        <Label Content="生成类型：" HorizontalAlignment="Left" Margin="30,285,0,0" VerticalAlignment="Top" Width="66"/>
+        <Grid HorizontalAlignment="Left" Height="25" Margin="101,285,0,0" VerticalAlignment="Top" Width="652">
+            <RadioButton Name="fileType1" GroupName="fileType" Content="生成.cs文件" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
+            <RadioButton Name="fileType2" GroupName="fileType" Content="生成.txt文件" HorizontalAlignment="Left" Margin="130,5,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Label Content="生成方式：" HorizontalAlignment="Left" Margin="30,315,0,0" VerticalAlignment="Top"/>
+        <Grid HorizontalAlignment="Left" Height="25" Margin="101,315,0,0" VerticalAlignment="Top" Width="652">
+            <RadioButton Name="saveManner1" GroupName="saveManner" Content="单表单文件" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
+            <RadioButton Name="saveManner2" GroupName="saveManner" Content="生成一个文件" HorizontalAlignment="Left" Margin="130,5,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Label Content="生成的内容：" HorizontalAlignment="Left" Margin="30,345,0,0" VerticalAlignment="Top"/>
+        <Grid HorizontalAlignment="Left" Height="25" Margin="101,345,0,0" VerticalAlignment="Top" Width="652">
+            <CheckBox Name="classObject1" Content="数据访问层(DAL)" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
+            <CheckBox Name="classObject2" Content="模型(Model)" HorizontalAlignment="Left" Margin="130,5,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Button Name="beginBtn" Content="开始生成" HorizontalAlignment="Left" Margin="225,389,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="BeginBtn_Click"/>
+        <Button Name="exitBtn" Content="退出" HorizontalAlignment="Left" Margin="445,389,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="ExitBtn_Click"/>
+        <Button x:Name="reloadBtn" Content="重置" HorizontalAlignment="Left" Margin="335,389,0,0" VerticalAlignment="Top" Width="75" Height="30" Click="ReloadBtn_Click"/>
+        <TextBox Name="tableHead" HorizontalAlignment="Left" Height="23" Margin="457,51,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="136"/>
+        <Label Content="表前缀：" HorizontalAlignment="Left" Margin="406,49,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="notTableHead" Content="无" HorizontalAlignment="Left" Margin="598,55,0,0" VerticalAlignment="Top" Click="NotTableHead_Click" />
+
+    </Grid>
+</Window>

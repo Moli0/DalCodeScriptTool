@@ -1,0 +1,223 @@
+﻿using Dapper;  
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace DAL 
+{6}
+     /// <summary>
+    /// 数据表[{5}{0}]操作类
+    /// 本类作者：Lin Moli [{1}]
+    /// </summary>
+    public partial class {0}DAL
+	{6}
+	    /// <summary>
+		///构造函数
+		/// </summary>
+	    public {0}DAL(){6}{7}
+
+		/// <summary>
+		///添加一条数据（返回插入的数据的id）
+		/// </summary>
+		public int Add(Model.{0} model)
+		{6}
+		    string sqlStr = " insert into [{5}{0}]({2}) values({3});select @@identity ";
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<int>(sqlStr,model).SingleOrDefault();
+			{7}
+		{7}
+
+		/// <summary>
+		///一次添加多条数据（返回插入的行数）
+		/// </summary>
+		public int Adds(List<Model.{0}> model)
+		{6}
+		    string sqlStr = " insert into [{5}{0}]({2}) ";
+			for(int i = 0;i<model.Count;i++)
+			{6}
+			    sqlStr += " select ";
+				foreach(var a in model[i].GetType().GetProperties())
+				{6}
+				    sqlStr += " '" + a + "',";
+				{7}
+				sqlStr = sqlStr.Substring(0,sqlStr.Length-1);
+			    if(i<model.Count-1)
+				{6}
+				    sqlStr += " union all ";
+				{7}
+			{7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Execute(sqlStr);
+			{7}
+		{7}
+
+		/// <summary>
+		///根据id修改一条数据（返回修改结果）
+		/// </summary>
+		public bool Update(Model.{0} model)
+		{6}
+		    string sqlStr = " update [{5}{0}] set {4} where id = @id";
+            using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Execute(sqlStr,model)>0;
+			{7}
+		{7}
+
+		/// <summary>
+		///根据条件修改数据（返回受影响的行数）
+		/// </summary>
+		public int Update(string field,string cond)
+		{6}
+		    string sqlStr = " update [{5}{0}] set "+ field +" where (1=2) ";
+            if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " or " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Execute(sqlStr);
+			{7}
+		{7}
+
+		/// <summary>
+		///根据id删除一条数据（返回修改结果）
+		/// </summary>
+		public bool Delete(int id)
+		{6}
+		    string sqlStr = " delete [{5}{0}] where id = @id";
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Execute(sqlStr,new{6} id = id {7})>0;
+			{7}
+		{7}
+
+		/// <summary>
+		///根据条件删除数据（返回受影响的行数）
+		/// </summary>
+		public int Delete(string cond)
+		{6}
+		    string sqlStr = " delete [{5}{0}] where (1=2) ";
+            if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " or " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Execute(sqlStr);
+			{7}
+		{7}
+
+		/// <summary>
+		///根据id取得数据模型（返回一个Model）
+		/// </summary>
+		public Model.{0} GetModel(int id)
+		{6}
+		    string sqlStr = " select top 1 * from [{5}{0}] where id = @id ";
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<Model.{0}>(sqlStr,new{6} id = id {7}).SingleOrDefault();
+			{7}
+		{7}
+
+		/// <summary>
+		///根据条件取得数据模型（返回一个Model）
+		/// </summary>
+		public Model.{0} GetModel(string cond)
+		{6}
+		    string sqlStr = " select top 1 * from [{5}{0}] where (1=1) ";
+			if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " and " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<Model.{0}>(sqlStr).SingleOrDefault();
+			{7}
+		{7}
+
+		/// <summary>
+		///按条件取得模型列表（返回一个List<Model>）
+		/// </summary>
+		public List<Model.{0}> GetListModel(string cond)
+		{6}
+		    string sqlStr = " select * from [{5}{0}] where (1=1) ";
+			if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " and " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<Model.{0}>(sqlStr).AsList();
+			{7}
+		{7}
+		
+		/// <summary>
+		///按条件取一个字段的值（返回一个string）
+		/// </summary>
+		public string GetOneField(string field,string cond)
+		{6}
+			string sqlStr = " select top 1 "+ field +" from [{5}{0}] where (1=1) ";
+			if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " and " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<string>(sqlStr).SingleOrDefault();
+			{7}
+		{7}
+
+		/// <summary>
+		///按条件取多个字段的值（返回一个Model）
+		/// </summary>
+		public Model.{0} GetFields(string fields,string cond)
+		{6}
+		    string sqlStr = " select top 1 "+ fields +" from [{5}{0}] where (1=1) ";
+			if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " and " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<Model.{0} >(sqlStr).SingleOrDefault();
+			{7}
+		{7}
+
+		/// <summary>
+		///按条件取一个字段的列表（返回一个List<string>）
+		/// </summary>
+		public List<string> GetListField(string field,string cond)
+		{6}
+		    string sqlStr = " select "+ field +" from [{5}{0}] where (1=1) ";
+			if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " and " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<string>(sqlStr).AsList();
+			{7}
+		{7}
+
+		/// <summary>
+		///按条件取多个字段的列表（返回一个List<model>）
+		/// </summary>
+		public List<Model.{0}> GetListFields(string fields,string cond)
+		{6}
+		    string sqlStr = " select "+ fields +" from [{5}{0}] where (1=1) ";
+			if (!string.IsNullOrEmpty(cond))
+            {6}
+                sqlStr += " and " + cond;
+            {7}
+			using(var connection = ConnectionCode.GetConnection())
+			{6}
+			    return connection.Query<Model.{0}>(sqlStr).AsList();
+			{7}
+		{7}
+	{7}
+{7}

@@ -1,0 +1,15 @@
+﻿using System;
+namespace Model
+{3}
+    /// <summary>
+	///{0}表实体模型
+	/// 作者:[Lin Moli]
+	/// 创建时间:{2}
+	/// </summary>
+    [Serializable]
+	public partial class {0}
+	{3}
+		public {0}(){3}{4}
+{1}
+	{4}
+{4}

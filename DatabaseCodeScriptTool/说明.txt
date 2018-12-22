@@ -1,0 +1,27 @@
+﻿作者:[Lin Moli]
+时间：2018-12-21 20:40:21
+
+本生成器生成的DAL代码为基于轻量级ORM的Dapper框架
+生成的操作包括插入、修改、删除、查询
+不包括数据库访问的变量conn，请自行编写好对应的方法:ConnectionCode.GetConnection()
+
+插入包括一条的插入和多条的插入的两种方法
+Add(ModelTpye varModel)    返回插入的数据的id
+Adds(List<ModelType> varListModel)   返回插入的行数
+
+修改包括根据id修改一条数据、根据条件修改固定字段两种
+Update(ModelType varModel)  返回bool
+Update(string field,string cond)  返回受影响的行数
+
+删除包括根据id删除一条数据以及根据条件删除多条数据
+Delete(int id)    返回bool
+Delete(string cond)   返回受影响的行数
+
+查询包括按id取模型、按条件取模型、按条件取列表、按条件取一个字段、按条件取多个字段、按条件取一个字段列表、按条件取多个字段列表
+GetModel(int id) 返回一个Model
+GetModel(string cond) 返回一个Model
+GetListModel(string cond) 返回一个List<Model>
+GetOneField(string field,string cond) 返回一个string
+GetFields(string fields,string cond) 返回一个Model
+GetListField(string field,string cond) 返回一个List<string>
+GetListFields(string fields,string cond) 返回一个List<Model>

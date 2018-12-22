@@ -1,0 +1,10 @@
+﻿		
+		private {1} _{0} ;
+		/// <summary>
+		/// 
+		/// </summary>
+		public {1} {0}
+		{2}
+			set{2} _{0}=value;{3}
+			get{2}return _{0};{3}
+		{3}
