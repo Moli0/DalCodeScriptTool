@@ -120,8 +120,5 @@
   <ItemGroup>
     <Resource Include="CodeModel2.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="CodeDalModel - 复制.txt" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
