@@ -13,11 +13,18 @@ namespace DatabaseCodeScriptTool
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Setting st = new Setting(1);
+
         public MainWindow()
         {
             InitializeComponent();
+            this.Closed += OnClosedEvent;
         }
 
+        private void OnClosedEvent(object sender,EventArgs e) {
+            Environment.Exit(0);
+        }
+        
         private void TestLinkBtn_Click(object sender, RoutedEventArgs e)
         {
             string connStr = this.sqlLinkStr.Text;
@@ -79,6 +86,14 @@ namespace DatabaseCodeScriptTool
                 string connStr = this.sqlLinkStr.Text;
                 connStr += $"database={databaseName};";
                 string sqlStr = "select name from sys.tables";
+                switch (st.inputType)
+                {
+                    case -1: sqlStr = "select null"; break;
+                    case 0: sqlStr = "select name from sys.tables union all select table_name as name from INFORMATION_SCHEMA.VIEWS"; break;
+                    case 1: sqlStr = "select name from sys.tables"; break;
+                    case 2: sqlStr = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS"; break;
+                    default: sqlStr = "select null"; break;
+                }
                 using (var connection = GetConnection(connStr))
                 {
                     connection.Open();
@@ -107,6 +122,14 @@ namespace DatabaseCodeScriptTool
             string databaseName = this.searchDatabase.Text;
             connStr += $"database={databaseName};";
             string sqlStr = "select name from sys.tables";  //查询表名
+            switch (st.inputType)
+            {
+                case -1: sqlStr = "select null";break;
+                case 0: sqlStr = "select name from sys.tables union all select table_name as name from INFORMATION_SCHEMA.VIEWS"; break;
+                case 1: sqlStr = "select name from sys.tables"; break;
+                case 2: sqlStr = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.VIEWS"; break;
+                default: sqlStr = "select null"; break;
+            }
             List<string> tableNames = new List<string>();   //表名列表
             List<string> dalCode = new List<string>();  //存放DAL的代码
             List<string> modelCode = new List<string>();   //存放Model的代码
@@ -211,7 +234,7 @@ namespace DatabaseCodeScriptTool
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Environment.Exit(0);
         }
 
         private void NotTableHead_Click(object sender, RoutedEventArgs e)
@@ -256,7 +279,7 @@ namespace DatabaseCodeScriptTool
         /// <param name="connStr"></param>
         /// <returns></returns>
         private string CreateDalCode(string tableName,string connStr) {
-            string sqlstr = $" select name from syscolumns where id in (select object_id from sys.tables where name='{tableName}') ";  //查询列名
+            string sqlstr = $" select COLUMN_NAME from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME ='{tableName}' ";  //查询列名
             List<string> columnNames = new List<string>();
             string code = null;
             string varTableName = ""; //{0}表名
@@ -313,7 +336,7 @@ namespace DatabaseCodeScriptTool
             string codeModel1 = GetTxt("../../CodeModel1.txt");
             string codeModel2 = GetTxt("../../CodeModel2.txt");
             string codeModel2Str = "";
-            string sqlstr = $" select name,usertype from syscolumns where id in (select object_id from sys.tables where name='{tableName}') ";  //查询列名
+            string sqlstr = $" select COLUMN_NAME,DATA_TYPE from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '{tableName}'";  //查询列名
             List<ColumnModel> columnNames = new List<ColumnModel>();
             using (var connection = GetConnection(connStr))
             {
@@ -332,8 +355,8 @@ namespace DatabaseCodeScriptTool
             }
             foreach (var a in columnNames)
             {
-                string type = GetType(a.Usertype);
-                codeModel2Str += string.Format(codeModel2, a.Name, type,"{","}");
+                string type = GetType(a.Datatype);
+                codeModel2Str += string.Format(codeModel2, a.Column_name, type,"{","}");
             }
             code = string.Format(codeModel1, varTableName, codeModel2Str, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),"{","}");
             return code;
@@ -358,18 +381,20 @@ namespace DatabaseCodeScriptTool
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        private string GetType(int value) {
+        private string GetType(string value) {
             string type = "";
             switch (value)
             {
-                case 2: type = "string"; break;
-                case 6: type = "int"; break;
-                case 7:type = "int"; break;
-                case 12: type = "DateTime"; break;
+                case "varchar": type = "string"; break;
+                case "char": type = "string"; break;
+                case "int": type = "int"; break;
+                case "smallint":type = "int"; break;
+                case "datetime": type = "DateTime"; break;
                 default:type = "string";break;
             }
             return type;
         }
+
         /// <summary>
         /// 文件输出至指定路径
         /// </summary>
@@ -411,6 +436,11 @@ namespace DatabaseCodeScriptTool
             catch { return false; }
             return true;
         }
+
+        private void HightSetting_Click(object sender, RoutedEventArgs e)
+        {
+            st.ShowDialog();
+        }
     }
     public class DatabaseModel {
         private string _name;
@@ -424,10 +454,10 @@ namespace DatabaseCodeScriptTool
 
     public class ColumnModel {
         public ColumnModel() { }
-        private string name;
-        private int usertype;
+        private string column_name;
+        private string datatype;
 
-        public string Name { get => name; set => name = value; }
-        public int Usertype { get => usertype; set => usertype = value; }
+        public string Column_name { get => column_name; set => column_name = value; }
+        public string Datatype { get => datatype; set => datatype = value; }
     }
 }
