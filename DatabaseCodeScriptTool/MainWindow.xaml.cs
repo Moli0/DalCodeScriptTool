@@ -355,7 +355,7 @@ namespace DatabaseCodeScriptTool
             }
             foreach (var a in columnNames)
             {
-                string type = GetType(a.Datatype);
+                string type = GetType(a.Data_type);
                 codeModel2Str += string.Format(codeModel2, a.Column_name, type,"{","}");
             }
             code = string.Format(codeModel1, varTableName, codeModel2Str, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),"{","}");
@@ -455,9 +455,9 @@ namespace DatabaseCodeScriptTool
     public class ColumnModel {
         public ColumnModel() { }
         private string column_name;
-        private string datatype;
+        private string data_type;
 
         public string Column_name { get => column_name; set => column_name = value; }
-        public string Datatype { get => datatype; set => datatype = value; }
+        public string Data_type { get => data_type; set => data_type = value; }
     }
 }
