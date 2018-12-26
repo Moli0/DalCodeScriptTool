@@ -25,3 +25,6 @@ GetOneField(string field,string cond) 返回一个string
 GetFields(string fields,string cond) 返回一个Model
 GetListField(string field,string cond) 返回一个List<string>
 GetListFields(string fields,string cond) 返回一个List<Model>
+
+
+//TODO:对于部分C#的关键字的数据库列名应该另行处理
