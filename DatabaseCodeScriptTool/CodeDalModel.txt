@@ -255,7 +255,7 @@ namespace DAL
         /// </summary>
         /// <param name="option">参数模型</param>
         /// <returns>一个DataSet对象</returns>
-        public DataSet GetPageList(Models.{0} option)
+        public DataSet GetPageList(Models.PaginModel option)
         {6}
             DataSet ds = new DataSet();
             ds = Helper.GetPaginList(option,"[{5}{0}]");
