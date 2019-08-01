@@ -22,7 +22,7 @@ namespace DAL
 	    public {0}DAL(){6}{7}
 
 		/// <summary>
-		///添加一条数据（返回插入的数据的id）
+		///添加一条数据(返)插入的数据的id）
 		/// </summary>
 		public int Add(Models.{0} Models)
 		{6}
@@ -34,7 +34,7 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///一次添加多条数据（返回插入的行数）
+		///一次添加多条数据(返)插入的行数）
 		/// </summary>
 		public int Adds(List<Models.{0}> Models)
 		{6}
@@ -59,7 +59,7 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///根据id修改一条数据（返回修改结果）
+		///根据id修改一条数据(返)修改结果）
 		/// </summary>
 		public bool Update(Models.{0} Models)
 		{6}
@@ -71,7 +71,7 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///根据条件修改数据（返回受影响的行数）
+		///根据条件修改数据(返)受影响的行数）
 		/// </summary>
 		public int Update(string field,string cond)
 		{6}
@@ -87,7 +87,7 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///根据id删除一条数据（返回修改结果）
+		///根据id删除一条数据(返)修改结果）
 		/// </summary>
 		public bool Delete(int id)
 		{6}
@@ -99,7 +99,7 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///根据条件删除数据（返回受影响的行数）
+		///根据条件删除数据(返)受影响的行数）
 		/// </summary>
 		public int Delete(string cond)
 		{6}
@@ -115,7 +115,7 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///根据id取得数据模型（返回一个Models）
+		///根据id取得数据模型(返)一个Models）
 		/// </summary>
 		public Models.{0} GetModels(int id)
 		{6}
@@ -127,11 +127,11 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///根据条件取得数据模型（返回一个Models）
+		///根据条件取得数据模型(返)一个Models）
 		/// </summary>
 		public Models.{0} GetModels(string cond)
 		{6}
-		    string sqlStr = " select top 1 * from [{5}{0}] where (1=1) ";
+		    string sqlStr = " select top 1 * from [{5}{0}] where state not in (2) ";
 			if (!string.IsNullOrEmpty(cond))
             {6}
                 sqlStr += " and " + cond;
@@ -143,11 +143,11 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///按条件取得模型列表（返回一个List<Models>）
+		///按条件取得模型列表(返)一个List<Models>）
 		/// </summary>
 		public List<Models.{0}> GetListModels(string cond)
 		{6}
-		    string sqlStr = " select * from [{5}{0}] where (1=1) ";
+		    string sqlStr = " select * from [{5}{0}] where state not in (2) ";
 			if (!string.IsNullOrEmpty(cond))
             {6}
                 sqlStr += " and " + cond;
@@ -159,11 +159,11 @@ namespace DAL
 		{7}
 		
 		/// <summary>
-		///按条件取一个字段的值（返回一个string）
+		///按条件取一个字段的值(返)一个string）
 		/// </summary>
 		public string GetOneField(string field,string cond)
 		{6}
-			string sqlStr = " select top 1 "+ field +" from [{5}{0}] where (1=1) ";
+			string sqlStr = " select top 1 "+ field +" from [{5}{0}] where state not in (2) ";
 			if (!string.IsNullOrEmpty(cond))
             {6}
                 sqlStr += " and " + cond;
@@ -175,11 +175,11 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///按条件取多个字段的值（返回一个Models）
+		///按条件取多个字段的值(返)一个Models）
 		/// </summary>
 		public Models.{0} GetFields(string fields,string cond)
 		{6}
-		    string sqlStr = " select top 1 "+ fields +" from [{5}{0}] where (1=1) ";
+		    string sqlStr = " select top 1 "+ fields +" from [{5}{0}] where state not in (2) ";
 			if (!string.IsNullOrEmpty(cond))
             {6}
                 sqlStr += " and " + cond;
@@ -191,11 +191,11 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///按条件取一个字段的列表（返回一个List<string>）
+		///按条件取一个字段的列表(返)一个List<string>）
 		/// </summary>
 		public List<string> GetListField(string field,string cond)
 		{6}
-		    string sqlStr = " select "+ field +" from [{5}{0}] where (1=1) ";
+		    string sqlStr = " select "+ field +" from [{5}{0}] where state not in (2) ";
 			if (!string.IsNullOrEmpty(cond))
             {6}
                 sqlStr += " and " + cond;
@@ -207,11 +207,11 @@ namespace DAL
 		{7}
 
 		/// <summary>
-		///按条件取多个字段的列表（返回一个List<Models>）
+		///按条件取多个字段的列表(返)一个List<Models>）
 		/// </summary>
 		public List<Models.{0}> GetListFields(string fields,string cond)
 		{6}
-		    string sqlStr = " select "+ fields +" from [{5}{0}] where (1=1) ";
+		    string sqlStr = " select "+ fields +" from [{5}{0}] where state not in (2) ";
 			if (!string.IsNullOrEmpty(cond))
             {6}
                 sqlStr += " and " + cond;
@@ -239,7 +239,7 @@ namespace DAL
 		/// </summary>
 		public int GetCount(string cond)
 		{6}
-			string sqlStr = " select count(*) from [{5}{0}] where (1=1) ";
+			string sqlStr = " select count(*) from [{5}{0}] where state not in (2) ";
 			if (!string.IsNullOrEmpty(cond))
             {6}
                 sqlStr += " and " + cond;
