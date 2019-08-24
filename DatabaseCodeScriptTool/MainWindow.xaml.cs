@@ -73,6 +73,7 @@ namespace DatabaseCodeScriptTool
             }
         }
 
+
         private void SearchTabelBtn_Click(object sender, RoutedEventArgs e)
         {
             string databaseName = this.searchDatabase.Text;
@@ -306,7 +307,7 @@ namespace DatabaseCodeScriptTool
             }
             foreach (var a in columnNames)
             {
-                if (a == "id")
+                if (a.ToLower() == "id"||a.ToLower() == "create_time")
                 { continue; }
                 varColumnStr += a + ",";
                 varColumnParam += $"@{a},";

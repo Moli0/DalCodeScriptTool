@@ -27,7 +27,7 @@ namespace DAL
 		public int Add(Models.{0} Models)
 		{6}
 		    string sqlStr = " insert into [{5}{0}]({2}) values({3});select @@identity ";
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<int>(sqlStr,Models).SingleOrDefault();
 			{7}
@@ -52,7 +52,7 @@ namespace DAL
 				    sqlStr += " union all ";
 				{7}
 			{7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Execute(sqlStr);
 			{7}
@@ -64,7 +64,7 @@ namespace DAL
 		public bool Update(Models.{0} Models)
 		{6}
 		    string sqlStr = " update [{5}{0}] set {4} where id = @id";
-            using(var connection = ConnectionCode.GetConnection())
+            using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Execute(sqlStr,Models)>0;
 			{7}
@@ -80,7 +80,7 @@ namespace DAL
             {6}
                 sqlStr += " or " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Execute(sqlStr);
 			{7}
@@ -92,7 +92,7 @@ namespace DAL
 		public bool Delete(int id)
 		{6}
 		    string sqlStr = " delete [{5}{0}] where id = @id";
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Execute(sqlStr,new{6} id = id {7})>0;
 			{7}
@@ -108,7 +108,7 @@ namespace DAL
             {6}
                 sqlStr += " or " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Execute(sqlStr);
 			{7}
@@ -120,7 +120,7 @@ namespace DAL
 		public Models.{0} GetModels(int id)
 		{6}
 		    string sqlStr = " select top 1 * from [{5}{0}] where id = @id ";
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<Models.{0}>(sqlStr,new{6} id = id {7}).SingleOrDefault();
 			{7}
@@ -136,7 +136,7 @@ namespace DAL
             {6}
                 sqlStr += " and " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<Models.{0}>(sqlStr).SingleOrDefault();
 			{7}
@@ -152,7 +152,7 @@ namespace DAL
             {6}
                 sqlStr += " and " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<Models.{0}>(sqlStr).AsList();
 			{7}
@@ -168,7 +168,7 @@ namespace DAL
             {6}
                 sqlStr += " and " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<string>(sqlStr).SingleOrDefault();
 			{7}
@@ -184,7 +184,7 @@ namespace DAL
             {6}
                 sqlStr += " and " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<Models.{0} >(sqlStr).SingleOrDefault();
 			{7}
@@ -200,7 +200,7 @@ namespace DAL
             {6}
                 sqlStr += " and " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<string>(sqlStr).AsList();
 			{7}
@@ -216,7 +216,7 @@ namespace DAL
             {6}
                 sqlStr += " and " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<Models.{0}>(sqlStr).AsList();
 			{7}
@@ -228,7 +228,7 @@ namespace DAL
 		public int GetCount()
 		{6}
 			string sqlStr = " select count(*) from [{5}{0}] ";
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<int>(sqlStr).SingleOrDefault();
 			{7}
@@ -244,7 +244,7 @@ namespace DAL
             {6}
                 sqlStr += " and " + cond;
             {7}
-			using(var connection = ConnectionCode.GetConnection())
+			using(var connection = new ConnectionCode().GetConnection())
 			{6}
 			    return connection.Query<int>(sqlStr).SingleOrDefault();
 			{7}
